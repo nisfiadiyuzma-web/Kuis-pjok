@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PJOK Champions: Tantangan Juara Olahraga</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#0B4DBB;--navy:#08275E;--or:#FF7A1A;--gr:#17A058;--bg:#F2F7FF;--card:#fff;--ink:#10233F;--mut:#5B6B85;--line:#D5E1F5;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0A1630;--card:#12254A;--ink:#EAF1FF;--mut:#9DB0D3;--line:#24407A;--blue:#7FB0FF}}
+:root[data-theme="dark"]{--bg:#0A1630;--card:#12254A;--ink:#EAF1FF;--mut:#9DB0D3;--line:#24407A;--blue:#7FB0FF}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:500 17px/1.5 Nunito,system-ui,sans-serif}
+h1,h2,.btn,b{font-family:"Baloo 2",Nunito,system-ui,sans-serif}
+h1{font-size:clamp(34px,9vw,54px);margin:0;line-height:1;letter-spacing:.5px}
+h2{font-size:22px;margin:18px 0 8px}
+.wrap{max-width:760px;margin:auto;padding:12px 14px 40px}
+.top{display:flex;justify-content:space-between;align-items:center;padding:6px 2px;color:var(--mut);font-size:15px}
+.ic{background:var(--card);border:2px solid var(--line);border-radius:12px;font-size:20px;min-width:44px;min-height:44px;cursor:pointer;margin-left:6px}
+.hero{background:var(--navy);color:#fff;border-radius:22px;padding:24px 20px;position:relative;overflow:hidden;border-bottom:8px solid var(--or)}
+.hero::after{content:"";position:absolute;right:-50px;top:-50px;width:190px;height:190px;border:5px solid rgba(255,255,255,.16);border-radius:50%}
+.hero::before{content:"";position:absolute;right:44px;top:-10px;width:5px;height:140%;background:rgba(255,255,255,.16);transform:rotate(18deg)}
+.hero p{margin:8px 0 0;opacity:.9}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin:12px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.tile{background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:16px;padding:12px;text-align:left;cursor:pointer;font:inherit;min-height:56px}
+.tile small{display:block;color:var(--mut);font-size:14px;line-height:1.3}
+.tile.on{border-color:var(--or);box-shadow:0 0 0 3px rgba(255,122,26,.25)}
+.btn{border:0;border-radius:14px;padding:12px 20px;font-size:19px;font-weight:800;cursor:pointer;background:var(--or);color:#fff;min-height:50px;margin:8px 8px 0 0}
+.btn.sec{background:var(--card);color:var(--blue);border:2px solid var(--line)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+:focus-visible{outline:3px solid var(--or);outline-offset:2px}
+.opt{display:block;width:100%;text-align:left;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:13px;margin:9px 0;font:inherit;font-size:18px;cursor:pointer;min-height:52px}
+.opt b{display:inline-block;width:28px;color:var(--or)}
+.opt.sel{border-color:var(--blue);background:rgba(11,77,187,.1)}
+.opt.ok{background:#DFF5E8;border-color:var(--gr);color:#0b3d22;animation:pop .35s}
+.opt.bad{background:#FDE3E3;border-color:#D93B3B;color:#5a1414}
+.opt:disabled{cursor:default}
+.good{border-color:var(--gr)}.oops{border-color:var(--or)}
+.row{display:flex;justify-content:space-between;gap:8px;font-weight:700;margin:6px 0}
+.bar{height:10px;background:var(--line);border-radius:9px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--gr);transition:width .3s}
+.bar.t i{background:var(--or);transition:none}
+.big{font:800 56px/1 "Baloo 2",system-ui,sans-serif;color:var(--blue)}
+.err{color:#D93B3B;font-weight:700}
+.note{color:var(--mut);font-size:14px}
+label{display:block;font-weight:700;margin:8px 0 4px}
+input,select,textarea{font:inherit;width:100%;padding:10px;border-radius:12px;border:2px solid var(--line);background:var(--card);color:var(--ink);box-sizing:border-box}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;white-space:nowrap}
+td,th{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left}
+.chip{display:inline-block;background:var(--line);border-radius:99px;padding:2px 10px;margin:2px;font-size:14px}
+@keyframes pop{50%{transform:scale(1.04)}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body>
+<div class="wrap">
+<header class="top"><span>SMP Negeri 26 Satap HST · PJOK Kelas VIII</span><span><button class="ic" data-act="snd" id="snd" aria-label="Suara aktif">🔊</button><button class="ic" data-act="tch" aria-label="Dashboard guru">🧑‍🏫</button></span></header>
+
+<section id="home">
+<div class="hero"><h1>PJOK CHAMPIONS</h1><p>Tantangan Juara Olahraga. Jawab, belajar, dan jadilah juara!</p></div>
+<div class="card"><label for="name">Namamu</label><input id="name" maxlength="40" placeholder="Contoh: Budi" autocomplete="off">
+<div id="codebox" hidden><label for="code">Kode sesi dari guru</label><input id="code" maxlength="12" autocomplete="off"></div></div>
+<h2>Pilih mode</h2><div class="grid" id="modes"></div>
+<h2>Pilih materi</h2><div class="grid" id="cats"></div>
+<p id="err" class="err" hidden></p>
+<button class="btn" data-act="start">Mulai</button>
+<p class="note">Guru: Yuzma Nisfiadi, S.Pd. Skor dan hasil disimpan di perangkat ini saja, bukan di server.</p>
+</section>
+
+<section id="quiz" hidden>
+<div class="row"><span id="prog"></span><span id="sc"></span></div><div class="bar"><i id="pbar"></i></div>
+<div class="row"><span id="turn"></span><span id="tsec"></span></div><div class="bar t"><i id="tbar" style="width:100%"></i></div>
+<div class="card"><small id="qcat" class="note"></small><h2 id="qtext" style="margin-top:4px"></h2><div id="opts"></div></div>
+<div id="fb" hidden></div>
+<button class="btn" id="ans" data-act="ans" disabled>Jawab</button>
+<button class="btn" id="next" data-act="next" hidden>Soal Berikutnya</button>
+<button class="btn sec" data-act="menu">Kembali ke Menu</button>
+</section>
+
+<section id="result" hidden></section>
+<section id="review" hidden></section>
+<section id="teacher" hidden></section>
+</div>
+
+<script>
+const CATS=[["Bola Besar","⚽"],["Bola Kecil","🏸"],["Atletik","🏃"],["Kebugaran","💪"],["Aktivitas Air","🏊"],["Hidup Sehat","🥗"],["Cegah Cedera","🩹"],["Sportivitas","🤝"]];
+const TF=["Benar","Salah"];
+// [kategori, level 1-3, soal, pilihan, indeks kunci, pembahasan]
+const BANK=[
+[0,1,"Berapa pemain inti satu tim sepak bola di lapangan, termasuk penjaga gawang?",["9","10","11","12"],2,"Satu tim sepak bola bermain dengan 11 pemain, termasuk satu penjaga gawang."],
+[0,1,"Dalam bola voli, satu tim paling banyak boleh menyentuh bola berapa kali (di luar blok) sebelum bola harus menyeberang net?",["2","3","4","5"],1,"Aturan tiga sentuhan: maksimal tiga sentuhan per tim sebelum bola dikirim ke lawan."],
+[0,2,"Pemain basket menggiring bola, berhenti, lalu mulai menggiring lagi. Pelanggaran apa yang terjadi?",["Traveling","Double dribble","Pelanggaran 3 detik","Out of bounds"],1,"Menggiring bola lagi setelah berhenti menggiring disebut double dribble."],
+[0,3,"Bola voli lawan melaju ke arah temanmu yang jauh dari bola, sedangkan kamu lebih dekat. Tindakan terbaik?",["Diam agar tidak salah","Berseru \"bola!\" lalu mengambil bola","Menyalahkan temanmu","Menghindar dari bola"],1,"Komunikasi dan keputusan cepat membuat kerja sama tim efektif."],
+[1,1,"Pada bulu tangkis, satu gim dimenangkan lebih dulu oleh pemain yang mencapai ... poin (tanpa deuce).",["11","15","21","25"],2,"Aturan saat ini memakai rally point hingga 21 poin. Jika 20-20, harus unggul 2 poin (maksimal 30)."],
+[1,2,"Pada tenis meja, satu gim dimenangkan oleh pemain yang lebih dulu mencapai ... poin dengan selisih minimal 2.",["7","11","15","21"],1,"Aturan saat ini: gim sampai 11 poin dengan selisih minimal 2 poin."],
+[1,1,"Benar atau salah: dalam bulu tangkis, kok yang jatuh tepat di garis dinyatakan masuk.",TF,0,"Kok yang mengenai garis dianggap masuk (in)."],
+[1,3,"Kamu akan menerima smash lawan di bulu tangkis. Sikap siap yang tepat?",["Berdiri tegak, raket diturunkan","Badan rendah, lutut sedikit ditekuk, raket di depan badan","Membelakangi net","Menutup mata lalu mengayun"],1,"Sikap siap rendah dengan raket di depan membuat reaksi lebih cepat."],
+[2,1,"Urutan aba-aba start lari jarak pendek adalah ...",["Bersedia – Siap – Ya","Siap – Bersedia – Ya","Ya – Siap – Bersedia","Bersedia – Ya – Siap"],0,"Aba-aba start: Bersedia, Siap, Ya (atau tanda bunyi)."],
+[2,2,"Pada lompat jauh, jarak lompatan diukur dari ... sampai bekas jatuh terdekat di bak pasir.",["Titik awalan","Tepi papan tumpu","Ujung bak pasir","Titik terjauh badan"],1,"Pengukuran dimulai dari tepi papan tumpu terdekat ke bekas jatuh terdekat."],
+[2,2,"Benar atau salah: pada tolak peluru, peluru diayunkan dan dilempar seperti melempar bola.",TF,1,"Peluru ditolak (didorong) dari bahu, tidak boleh dilempar."],
+[2,3,"Pada lari jarak jauh, seorang pelari memulai dengan kecepatan sangat tinggi lalu cepat lelah. Strategi yang tepat?",["Atur tempo stabil dan jaga pernapasan","Sprint terus sampai finis","Berhenti tiap menit","Menahan napas"],0,"Pengaturan tempo menghemat energi dan menjaga daya tahan."],
+[3,1,"Komponen kebugaran yang paling terlatih lewat lari jarak jauh adalah ...",["Kelenturan","Daya tahan kardiorespirasi","Kecepatan reaksi","Keseimbangan"],1,"Lari jauh melatih jantung, paru-paru, dan pembuluh darah."],
+[3,1,"Latihan yang tepat untuk meningkatkan kekuatan otot lengan adalah ...",["Push up","Jalan santai","Menggerakkan leher","Lompat tali"],0,"Push up melatih otot lengan, dada, dan bahu."],
+[3,2,"Tes duduk dan raih (sit and reach) mengukur ...",["Kelenturan","Kecepatan","Daya ledak","Daya tahan"],0,"Sit and reach mengukur kelenturan punggung bawah dan otot paha belakang."],
+[3,3,"Dalam prinsip latihan FITT, huruf I berarti ...",["Intensitas (seberapa berat)","Istirahat","Irama","Ilmu"],0,"FITT: Frequency (frekuensi), Intensity (intensitas), Time (waktu), Type (jenis latihan)."],
+[4,1,"Gerakan kaki renang gaya dada menyerupai gerakan ...",["Gunting","Katak","Cambuk","Sepeda"],1,"Tendangan kaki gaya dada seperti gerakan katak."],
+[4,2,"Temanmu tenggelam dan kamu belum terlatih menyelamatkan. Cara yang paling aman?",["Langsung terjun","Minta bantuan dan lempar benda apung","Menunggu saja","Merekam video"],1,"Utamakan keselamatan diri: panggil bantuan, lempar atau julurkan benda apung."],
+[4,2,"Benar atau salah: boleh berenang sendirian di sungai berarus asal sudah pandai berenang.",TF,1,"Arus dan kedalaman sulit diduga. Berenang harus di tempat aman dan ada pengawas."],
+[4,3,"Kakimu kram saat berenang di air dalam. Tindakan pertama yang tepat?",["Panik dan meronta","Tetap tenang, mengapung, regangkan otot, minta bantuan bila perlu","Menyelam","Berenang cepat ke tepi"],1,"Tenang dan mengapung menghemat tenaga sambil kamu meregangkan otot."],
+[5,1,"Sumber energi utama bagi tubuh adalah ...",["Karbohidrat","Vitamin","Mineral","Serat"],0,"Karbohidrat (bersama lemak) adalah sumber energi utama."],
+[5,1,"Mencuci tangan dengan sabun sebaiknya dilakukan paling sedikit selama ...",["5 detik","10 detik","20 detik","1 detik"],2,"Cuci tangan dengan sabun minimal 20 detik agar kuman terangkat."],
+[5,2,"Lama tidur yang dianjurkan bagi remaja per malam sekitar ...",["4–5 jam","6 jam","8–10 jam","12–14 jam"],2,"Remaja membutuhkan tidur sekitar 8–10 jam untuk pemulihan dan konsentrasi."],
+[5,3,"Pencegahan demam berdarah dengan 3M Plus: Menguras, Menutup, dan ...",["Memakan","Mendaur ulang barang bekas","Mengecat","Menyapu"],1,"3M: Menguras tempat air, Menutup wadah air, Mendaur ulang barang bekas."],
+[6,1,"Tujuan utama pemanasan adalah ...",["Menyiapkan tubuh dan mengurangi risiko cedera","Membuat badan lelah","Memamerkan kekuatan","Menambah berat badan"],0,"Pemanasan menaikkan suhu otot dan menyiapkan sendi serta jantung."],
+[6,2,"RICE dalam penanganan awal cedera ringan adalah ...",["Rest, Ice, Compression, Elevation","Run, Ice, Care, Exercise","Rest, Impact, Care, Energy","Relax, Ice, Cool, Eat"],0,"RICE: Rest (istirahat), Ice (kompres dingin), Compression (balut), Elevation (tinggikan)."],
+[6,2,"Pergelangan kakimu terkilir saat bermain. Tindakan awal yang tepat?",["Diurut keras","Istirahatkan dan kompres dingin","Dipaksa berjalan","Dikompres panas langsung"],1,"Istirahatkan, kompres dingin berlapis kain, balut ringan. Jika bengkak parah, periksakan ke tenaga kesehatan."],
+[6,3,"Benar atau salah: pemanasan sebaiknya memakai gerakan dinamis, sedangkan peregangan statis lebih cocok saat pendinginan.",TF,0,"Gerakan dinamis menyiapkan otot, peregangan statis membantu otot rileks setelah olahraga."],
+[7,1,"Sikap sportif setelah timmu kalah adalah ...",["Menerima kekalahan dan memberi selamat","Menyalahkan wasit","Marah-marah","Mengejek lawan"],0,"Sportif berarti menghargai lawan dan menerima hasil dengan lapang dada."],
+[7,1,"Benar atau salah: fair play berarti bermain jujur dan sesuai aturan.",TF,0,"Fair play adalah kejujuran, menghormati aturan, lawan, dan wasit."],
+[7,2,"Pemain lawan jatuh cedera saat pertandingan. Tindakan sportif?",["Melanjutkan serangan","Menghentikan permainan dan membantu","Menertawakan","Pura-pura tidak melihat"],1,"Keselamatan lebih penting daripada skor."],
+[7,3,"Wasit memutuskan sesuatu yang menurutmu keliru. Respons terbaik?",["Protes keras","Menerima keputusan; kapten boleh bertanya dengan sopan","Meninggalkan lapangan","Membalas dengan kasar"],1,"Keputusan wasit dihormati. Pertanyaan disampaikan sopan lewat kapten."]
+];
+const MODES={adv:["Petualangan","🏆","Level pemula sampai juara"],kilat:["Kilat","⚡","20 detik per soal"],boss:["Boss Challenge","👑","Soal paling menantang"],duel:["Duel Tim","🤝","Dua tim bergantian"]};
+let mem={};
+const st={get(k,d){try{const v=localStorage.getItem(k);if(v!==null)return JSON.parse(v)}catch(e){}return k in mem?mem[k]:d},set(k,v){mem[k]=v;try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+let cfg=Object.assign({n:10,sec:30,code:"",pin:"juara26"},st.get("pc_s",{}));
+const allQ=()=>BANK.concat(st.get("pc_q",[]));
+let S={mode:"adv",cat:-1},sound=true,tick,auth=false;
+function beep(f,d){if(!sound)return;try{const a=beep.c||(beep.c=new(window.AudioContext||window.webkitAudioContext)()),o=a.createOscillator(),g=a.createGain();o.frequency.value=f;g.gain.value=.08;o.connect(g);g.connect(a.destination);o.start();o.stop(a.currentTime+d)}catch(e){}}
+function show(id){["home","quiz","result","review","teacher"].forEach(x=>$("#"+x).hidden=x!==id);scrollTo(0,0)}
+function home(){
+ clearInterval(tick);show("home");
+ $("#modes").innerHTML=Object.entries(MODES).map(([k,m])=>`<button class="tile ${S.mode==k?"on":""}" data-m="${k}"><b>${m[1]} ${m[0]}</b><small>${m[2]}</small></button>`).join("");
+ $("#cats").innerHTML=[["Semua materi","🎯"]].concat(CATS).map((c,i)=>`<button class="tile ${S.cat==i-1?"on":""}" data-c="${i-1}"><b>${c[1]} ${c[0]}</b></button>`).join("");
+ $("#codebox").hidden=!cfg.code;
+}
+function err(m){const e=$("#err");e.textContent=m;e.hidden=false}
+function start(){
+ const nm=$("#name").value.trim();
+ if(S.mode!="duel"&&!nm)return err("Tulis namamu dulu ya.");
+ if(cfg.code&&$("#code").value.trim().toLowerCase()!=cfg.code.toLowerCase())return err("Kode sesi belum cocok. Tanyakan pada gurumu.");
+ let pool=shuf(allQ().filter(q=>S.cat<0||q[0]==S.cat));
+ if(!pool.length)return err("Belum ada soal untuk materi ini.");
+ if(S.mode=="boss")pool.sort((a,b)=>b[1]-a[1]);
+ pool=pool.slice(0,Math.min(cfg.n,pool.length));
+ if(S.mode=="adv")pool.sort((a,b)=>a[1]-b[1]);
+ S.qs=pool.map(q=>{let o=q[3].map((t,i)=>({t,i}));if(o.length>2)o=shuf(o);return{c:q[0],l:q[1],q:q[2],o:o.map(x=>x.t),k:o.findIndex(x=>x.i==q[4]),e:q[5]}});
+ Object.assign(S,{i:0,score:0,ok:0,log:[],ts:[0,0],team:0,name:nm||"Duel Tim",t0:Date.now(),lim:S.mode=="kilat"?20:cfg.sec});
+ $("#err").hidden=true;ask();
+}
+function ask(){
+ const q=S.qs[S.i];S.lock=false;S.sel=-1;S.left=S.lim;show("quiz");
+ $("#prog").textContent=`Soal ${S.i+1} dari ${S.qs.length}`;
+ $("#pbar").style.width=(S.i/S.qs.length*100)+"%";
+ $("#sc").textContent=S.mode=="duel"?`Tim A ${S.ts[0]} · Tim B ${S.ts[1]}`:`Skor ${S.score}`;
+ $("#turn").textContent=S.mode=="duel"?`Giliran: Tim ${S.team?"B":"A"}`:MODES[S.mode][1]+" "+MODES[S.mode][0];
+ $("#qcat").textContent=CATS[q.c][1]+" "+CATS[q.c][0]+" · "+["","Mudah","Sedang","Sulit"][q.l];
+ $("#qtext").textContent=q.q;
+ $("#opts").innerHTML=q.o.map((t,i)=>`<button class="opt" data-a="${i}"><b>${q.o.length>2?"ABCD"[i]:["B","S"][i]}</b> ${esc(t)}</button>`).join("");
+ $("#fb").hidden=true;$("#next").hidden=true;$("#ans").hidden=false;$("#ans").disabled=true;
+ clearInterval(tick);const t1=Date.now();
+ tick=setInterval(()=>{S.left=Math.max(0,S.lim-(Date.now()-t1)/1000);$("#tbar").style.width=S.left/S.lim*100+"%";$("#tsec").textContent=Math.ceil(S.left)+" dtk";if(S.left<=0)lock(-1)},100);
+}
+function lock(c){
+ if(S.lock)return;S.lock=true;clearInterval(tick);
+ const q=S.qs[S.i],ok=c==q.k,bonus=ok?Math.round(50*S.left/S.lim):0,pts=ok?100+bonus:0;
+ S.score+=pts;if(S.mode=="duel")S.ts[S.team]+=pts;if(ok)S.ok++;
+ S.log.push({q,c,ok,pts});
+ document.querySelectorAll(".opt").forEach((b,i)=>{b.disabled=true;if(i==q.k)b.classList.add("ok");else if(i==c)b.classList.add("bad")});
+ beep(ok?660:220,.15);
+ const fb=$("#fb");fb.hidden=false;fb.className="card "+(ok?"good":"oops");
+ fb.innerHTML=`<b>${c==-1?"Waktu habis. Tidak apa-apa, ayo belajar dari soal ini!":ok?`Benar! +${pts} poin (bonus kecepatan ${bonus})`:"Belum tepat, ini kesempatan belajar."}</b><br>${esc(q.e)}`;
+ $("#ans").hidden=true;$("#next").hidden=false;$("#next").textContent=S.i+1<S.qs.length?"Soal Berikutnya":"Lihat Hasil";
+}
+function finish(){
+ clearInterval(tick);
+ const n=S.qs.length,nilai=Math.round(S.ok/n*100),sec=Math.round((Date.now()-S.t0)/1000),by={};
+ S.log.forEach(x=>{const b=by[x.q.c]||(by[x.q.c]=[0,0]);b[1]++;if(x.ok)b[0]++});
+ const rec={t:new Date().toLocaleString("id-ID"),name:S.name,mode:MODES[S.mode][0],cat:S.cat<0?"Semua materi":CATS[S.cat][0],ok:S.ok,n,nilai,score:S.score,sec,by};
+ const r=st.get("pc_r",[]);r.push(rec);st.set("pc_r",r);
+ const bd=nilai>=90?["🏆","Juara PJOK"]:nilai>=75?["🌟","Bintang Sportivitas"]:nilai>=60?["🥇","Atlet Hebat"]:["🎽","Pemula"];
+ const msg=nilai>=90?"Luar biasa! Kamu layak jadi juara. Ajak temanmu belajar bersama, ya.":nilai>=75?"Hebat! Sedikit lagi menuju juara.":nilai>=60?"Bagus! Terus berlatih, kamu sedang berkembang.":"Semangat! Setiap kesalahan adalah kesempatan belajar. Coba lagi, kamu pasti bisa.";
+ const mast=[],rev=[];Object.entries(by).forEach(([c,[a,b]])=>(a/b>=.7?mast:rev).push(CATS[c][1]+" "+CATS[c][0]));
+ const chips=a=>a.length?a.map(x=>`<span class="chip">${x}</span>`).join(""):"<span class=note>-</span>";
+ const duel=S.mode=="duel"?`<div class="card"><b>Duel Tim:</b> Tim A ${S.ts[0]} vs Tim B ${S.ts[1]}. ${S.ts[0]==S.ts[1]?"Seri! Dua tim sama-sama hebat.":"Pemenang: Tim "+(S.ts[0]>S.ts[1]?"A":"B")+". Selamat, dan terima kasih untuk kedua tim!"}</div>`:"";
+ $("#result").innerHTML=`<div class="hero"><div style="font-size:54px">${bd[0]}</div><h1 style="font-size:34px">${bd[1]}</h1><p>${esc(msg)}</p></div>${duel}
+ <div class="card"><div class="row"><span>Nama</span><span>${esc(S.name)}</span></div><div class="row"><span>Materi · Mode</span><span>${esc(rec.cat)} · ${rec.mode}</span></div>
+ <div class="row"><span>Benar / Salah</span><span>${S.ok} / ${n-S.ok}</span></div><div class="row"><span>Ketepatan</span><span>${nilai}%</span></div><div class="row"><span>Waktu</span><span>${Math.floor(sec/60)} mnt ${sec%60} dtk</span></div></div>
+ <div class="grid"><div class="card"><small class="note">Nilai akademik (0–100)</small><div class="big">${nilai}</div></div><div class="card"><small class="note">Skor permainan (termasuk bonus)</small><div class="big" style="color:var(--or)">${S.score}</div></div></div>
+ <div class="card"><b>Sudah dikuasai</b><br>${chips(mast)}<br><b>Perlu dipelajari lagi</b><br>${chips(rev)}</div>
+ <button class="btn" data-act="start">Main Lagi</button><button class="btn sec" data-act="rev">Tinjau Pembahasan</button><button class="btn sec" data-act="menu">Kembali ke Menu</button>`;
+ show("result");beep(880,.25);
+}
+function review(){
+ $("#review").innerHTML=`<h2>Pembahasan</h2>`+S.log.map((x,i)=>`<div class="card ${x.ok?"good":"oops"}"><b>${i+1}. ${esc(x.q.q)}</b><br>Jawabanmu: ${x.c<0?"(waktu habis)":esc(x.q.o[x.c])} ${x.ok?"✅":"❌"}<br>Jawaban benar: ${esc(x.q.o[x.q.k])}<br><span class="note">${esc(x.q.e)}</span></div>`).join("")+`<button class="btn sec" data-act="back">Kembali ke Hasil</button><button class="btn" data-act="menu">Kembali ke Menu</button>`;
+ show("review");
+}
+function teacher(){
+ show("teacher");const T=$("#teacher");
+ if(!auth){T.innerHTML=`<h2>Dashboard Guru</h2><div class="card"><label for="pin">PIN guru</label><input id="pin" type="password" autocomplete="off"><p id="perr" class="err" hidden>PIN salah.</p><button class="btn" data-act="login">Masuk</button><button class="btn sec" data-act="menu">Kembali</button><p class="note">PIN awal: juara26. Segera ganti setelah masuk. PIN ini hanya pengaman sederhana di perangkat, bukan keamanan server.</p></div>`;return}
+ const R=st.get("pc_r",[]),Q=st.get("pc_q",[]),w={};
+ R.forEach(r=>Object.entries(r.by||{}).forEach(([c,[a,b]])=>w[c]=(w[c]||0)+b-a));
+ const wl=Object.entries(w).filter(x=>x[1]>0).sort((a,b)=>b[1]-a[1]);
+ T.innerHTML=`<h2>Dashboard Guru</h2>
+ <div class="card"><b>Pengaturan sesi</b><label for="cn">Jumlah soal per sesi</label><input id="cn" type="number" min="3" max="40" value="${cfg.n}"><label for="cs">Durasi per soal (detik, Mode Kilat tetap 20)</label><input id="cs" type="number" min="10" max="120" value="${cfg.sec}"><label for="cc">Kode sesi kelas (kosongkan jika tidak dipakai)</label><input id="cc" maxlength="12" value="${esc(cfg.code)}"><label for="cp">PIN guru baru (opsional)</label><input id="cp" type="password"><br><button class="btn" data-act="saveCfg">Simpan pengaturan</button><span id="ok1" class="note"></span></div>
+ <div class="card"><b>Tambah soal (bank soal: ${BANK.length} bawaan + ${Q.length} milik guru)</b><label for="qc">Materi</label><select id="qc">${CATS.map((c,i)=>`<option value="${i}">${c[0]}</option>`).join("")}</select><label for="ql">Tingkat</label><select id="ql"><option value="1">Mudah</option><option value="2">Sedang</option><option value="3">Sulit</option></select><label for="qq">Pertanyaan</label><textarea id="qq" rows="2"></textarea>${[0,1,2,3].map(i=>`<label for="o${i}">Pilihan ${"ABCD"[i]}</label><input id="o${i}">`).join("")}<label for="qk">Kunci jawaban</label><select id="qk"><option value="0">A</option><option value="1">B</option><option value="2">C</option><option value="3">D</option></select><label for="qe">Pembahasan singkat</label><textarea id="qe" rows="2"></textarea><p id="qerr" class="err" hidden></p><button class="btn" data-act="addQ">Tambah soal</button></div>
+ ${Q.length?`<div class="card"><b>Soal milik guru</b>${Q.map((q,i)=>`<div class="row"><span>${esc(q[2])}</span><button class="btn sec" style="margin:0;min-height:40px;padding:4px 12px" data-del="${i}">Hapus</button></div>`).join("")}</div>`:""}
+ <div class="card"><b>Materi paling banyak dijawab salah</b><br>${wl.length?wl.map(([c,n])=>`<span class="chip">${CATS[c][1]} ${CATS[c][0]}: ${n} salah</span>`).join(""):"<span class=note>Belum ada data.</span>"}</div>
+ <div class="card"><b>Rekap hasil siswa (${R.length})</b><div class="scroll"><table><tr><th>Waktu</th><th>Nama</th><th>Mode</th><th>Materi</th><th>Benar</th><th>Nilai</th><th>Skor</th></tr>${R.slice().reverse().map(r=>`<tr><td>${esc(r.t)}</td><td>${esc(r.name)}</td><td>${r.mode}</td><td>${esc(r.cat)}</td><td>${r.ok}/${r.n}</td><td>${r.nilai}</td><td>${r.score}</td></tr>`).join("")}</table></div>
+ <button class="btn" data-act="csv">Unduh CSV</button><button class="btn sec" data-act="clr">Hapus semua hasil</button><textarea id="csvbox" rows="5" hidden readonly></textarea><p class="note">Hasil hanya tersimpan di peramban perangkat ini. Jika tombol unduh tidak bekerja, salin teks CSV yang muncul. Untuk data permanen lintas perangkat dibutuhkan basis data server.</p></div>
+ <button class="btn sec" data-act="menu">Keluar</button>`;
+}
+function csv(){
+ const q=v=>'"'+String(v).replace(/"/g,'""')+'"',R=st.get("pc_r",[]);
+ const t=["Waktu,Nama,Mode,Materi,Benar,Total,Nilai,Skor Permainan,Durasi (detik)"].concat(R.map(r=>[r.t,r.name,r.mode,r.cat,r.ok,r.n,r.nilai,r.score,r.sec].map(q).join(","))).join("\n");
+ const b=$("#csvbox");b.hidden=false;b.value=t;
+ try{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\ufeff"+t],{type:"text/csv"}));a.download="hasil-pjok-champions.csv";a.click()}catch(e){}
+}
+document.addEventListener("click",e=>{
+ const t=e.target.closest("button");if(!t)return;
+ const d=t.dataset;
+ if(d.m){S.mode=d.m;home();return}
+ if(d.c){S.cat=+d.c;home();return}
+ if(d.a!==undefined){if(S.lock)return;S.sel=+d.a;document.querySelectorAll(".opt").forEach((b,i)=>b.classList.toggle("sel",i==S.sel));$("#ans").disabled=false;return}
+ if(d.del!==undefined){const Q=st.get("pc_q",[]);Q.splice(+d.del,1);st.set("pc_q",Q);teacher();return}
+ switch(d.act){
+  case"start":start();break;
+  case"ans":if(S.sel>=0)lock(S.sel);break;
+  case"next":S.i+1<S.qs.length?(S.i++,S.mode=="duel"&&(S.team^=1),ask()):finish();break;
+  case"menu":auth=false;home();break;
+  case"rev":review();break;
+  case"back":show("result");break;
+  case"snd":sound=!sound;t.textContent=sound?"🔊":"🔇";break;
+  case"tch":teacher();break;
+  case"login":if($("#pin").value===cfg.pin){auth=true;teacher()}else $("#perr").hidden=false;break;
+  case"saveCfg":{const n=Math.max(3,Math.min(40,+$("#cn").value||10)),s=Math.max(10,Math.min(120,+$("#cs").value||30)),p=$("#cp").value.trim();cfg.n=n;cfg.sec=s;cfg.code=$("#cc").value.trim();if(p)cfg.pin=p;st.set("pc_s",cfg);$("#ok1").textContent=" Tersimpan.";break}
+  case"addQ":{const o=[0,1,2,3].map(i=>$("#o"+i).value.trim()),q=$("#qq").value.trim(),e=$("#qe").value.trim(),er=$("#qerr");
+   if(!q||o.some(x=>!x)||!e){er.textContent="Lengkapi pertanyaan, empat pilihan, dan pembahasan.";er.hidden=false;break}
+   const Q=st.get("pc_q",[]);Q.push([+$("#qc").value,+$("#ql").value,q,o,+$("#qk").value,e]);st.set("pc_q",Q);teacher();break}
+  case"csv":csv();break;
+  case"clr":st.set("pc_r",[]);teacher();break;
+ }
+});
+home();
+</script></body></html>
